@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate  } from 'react-router-dom';
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -7,6 +8,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import { register } from "../actions/auth";
+
 
 const required = (value) => {
   if (!value) {
@@ -47,14 +49,25 @@ const vpassword = (value) => {
     );
   }
 };
+const cpassword = (value) => {
+  if (value.length < 6 || value.length > 40) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The password must be between 6 and 40 characters.
+      </div>
+    );
+  }
+};
 
 const Register = () => {
+  const { isLoggedIn } = useSelector(state => state.auth);
   const form = useRef();
   const checkBtn = useRef();
-
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [c_password, setConfirmPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
 
   const { message } = useSelector(state => state.message);
@@ -75,6 +88,11 @@ const Register = () => {
     setPassword(password);
   };
 
+  const onChangeConfirmPassword = (e) => {
+    const c_password = e.target.value;
+    setConfirmPassword(c_password);
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -83,16 +101,19 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(username, email, password))
-        .then(() => {
-          setSuccessful(true);
-        })
+      dispatch(register(username, email, password, c_password))
+      .then(() => {
+        navigate("/profile");
+        window.location.reload();
+      })
         .catch(() => {
           setSuccessful(false);
         });
     }
   };
-
+  if (isLoggedIn) {
+    return <Navigate to="/profile" />;
+  }
   return (
     <div className="col-md-12">
       <div className="card card-container">
@@ -106,7 +127,7 @@ const Register = () => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Names</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -138,6 +159,17 @@ const Register = () => {
                   value={password}
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Confirm Password</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={c_password}
+                  onChange={onChangeConfirmPassword}
+                  validations={[required, cpassword]}
                 />
               </div>
 

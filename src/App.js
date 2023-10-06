@@ -9,10 +9,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
-import BoardUser from "./components/BoardUser";
-import BoardModerator from "./components/BoardModerator";
-import BoardAdmin from "./components/BoardAdmin";
-
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -22,7 +18,7 @@ const App = () => {
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+console.log('currentUser:',currentUser)
   let location = useLocation();
 
   useEffect(() => {
@@ -37,8 +33,8 @@ const App = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+      // setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
+      // setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
     } else {
       setShowModeratorBoard(false);
       setShowAdminBoard(false);
@@ -57,37 +53,13 @@ const App = () => {
               Home
             </Link>
           </li>
-
-          {showModeratorBoard && (
-            <li className="nav-item">
-              <Link to={"/mod"} className="nav-link">
-                Moderator Board
-              </Link>
-            </li>
-          )}
-
-          {showAdminBoard && (
-            <li className="nav-item">
-              <Link to={"/admin"} className="nav-link">
-                Admin Board
-              </Link>
-            </li>
-          )}
-
-          {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
-              </Link>
-            </li>
-          )}
         </div>
 
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
+                {currentUser.name}
               </Link>
             </li>
             <li className="nav-item">
@@ -120,9 +92,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/user" element={<BoardUser />} />
-          <Route path="/mod" element={<BoardModerator />} />
-          <Route path="/admin" element={<BoardAdmin />} />
+         
         </Routes>
       </div>
 
