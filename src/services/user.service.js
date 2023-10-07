@@ -11,17 +11,41 @@ const getUserBoard = () => {
   return axios.get(API_URL + "user", { headers: authHeader() });
 };
 
-const getModeratorBoard = () => {
-  return axios.get(API_URL + "mod", { headers: authHeader() });
+const getUserPreference = () => {
+  return axios.get(API_URL + "preferences", { headers: authHeader() });
+};
+const getCategories = () => {
+  return axios.get(API_URL + "categories", { headers: authHeader() });
+};
+const getSources = () => {
+  return axios.get(API_URL + "sources", { headers: authHeader() });
+};
+const getAuthors = () => {
+  return axios.get(API_URL + "authors");
 };
 
-const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
+
+
+const savePreference = (data) => {
+
+ return  axios.request({
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: API_URL + 'preference',
+    headers: authHeader(),
+    data : JSON.stringify(data)
+  })
+
 };
+
+
 
 export default {
   getPublicContent,
   getUserBoard,
-  getModeratorBoard,
-  getAdminBoard,
+  getUserPreference,
+  getCategories,
+  getSources,
+  getAuthors,
+  savePreference,
 };

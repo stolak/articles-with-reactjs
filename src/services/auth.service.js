@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://localhost:8000/api/";
 
 const register = (username, email, password, c_password) => {
-  console.log( "saving...",username, email, password, c_password)
+  // console.log( "saving...",username, email, password, c_password)
   return axios.post(API_URL + "register", {
     name: username,
     email,
@@ -13,6 +13,16 @@ const register = (username, email, password, c_password) => {
     if (response.data.data.token) {
       localStorage.setItem("user", JSON.stringify(response.data.data));
     }
+    return response.data;
+  });
+};
+
+const reference = (category, author, source) => {
+  // console.log( "saving...",username, email, password, c_password)
+  return axios.post(API_URL + "preference", {
+    category, author, source
+  }).then((response) => {
+    console.log("gdgdgdg",response.data)
     return response.data;
   });
 };
@@ -39,4 +49,5 @@ export default {
   register,
   login,
   logout,
+  reference
 };
