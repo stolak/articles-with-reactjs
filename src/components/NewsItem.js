@@ -1,7 +1,7 @@
 import React from "react";
 
 const NewsItem=(props)=> {
-    let { title, description, imgUrl, newsUrl, author, date } = props;
+    let { title, description, imgUrl, newsUrl, author, date, source } = props;
     return (
       <div className="my-3">
         <div className="card">
@@ -15,7 +15,7 @@ const NewsItem=(props)=> {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title">{title}</h5>
+            <h5 className="card-title">{title}-{source}</h5>
             <span className="badge rounded-pill text-bg-secondary">
               By {!author ? "Unknown" : author}
             </span>

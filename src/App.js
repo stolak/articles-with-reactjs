@@ -19,7 +19,7 @@ const App = () => {
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-console.log('currentUser:',currentUser)
+  console.log('currentUser:',currentUser)
   let location = useLocation();
 
   useEffect(() => {
@@ -32,15 +32,7 @@ console.log('currentUser:',currentUser)
     dispatch(logout());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (currentUser) {
-      // setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      // setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
-    } else {
-      setShowModeratorBoard(false);
-      setShowAdminBoard(false);
-    }
-  }, [currentUser]);
+  
 
   return (
     <div>
