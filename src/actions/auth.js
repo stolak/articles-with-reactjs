@@ -46,7 +46,6 @@ import {
   };
   
   export const login = (email, password) => (dispatch) => {
-    console.log("email:",email)
     return AuthService.login(email, password).then(
       (data) => {
         dispatch({
