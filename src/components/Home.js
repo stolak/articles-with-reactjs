@@ -62,7 +62,6 @@ const Home = () => {
     UserService.getPublicContent(isLoggedIn, keyword).then(
       (response) => {
         setArticles(response.data.data);
-        // console.log(response.data)
       },
       (error) => {
         console.log(error);
