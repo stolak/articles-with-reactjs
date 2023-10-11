@@ -132,9 +132,9 @@ const Home = () => {
 
         <div className="container">
           <div className="row">
-            {articlefeeder.map((element) => {
+            {articlefeeder.map((element,index) => {
               return (
-                <div key={element.url} className="col-md-4">
+                <div key={index} className="col-md-4">
                   <NewsItem
                     author={element.author}
                     date={element.publish_date}
