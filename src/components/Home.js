@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import NewsItem from "./NewsItem";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -18,7 +18,6 @@ const Home = () => {
     );
   }
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const [content, setContent] = useState("");
   const [articles, setArticles] = useState([]);
   const [articlefeeder, setArticlefeeder] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -74,7 +73,6 @@ const Home = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
       </header>
       <div className="container my-3">
         <h1 style={{ marginTop: "90px" }} className="text-center">
