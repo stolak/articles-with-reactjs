@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = process.env.REACT_APP_BASE_URL; // "http://localhost:8000/api/";
+const API_URL = process.env.REACT_APP_BASE_URL; 
 
 const getPublicContent = (isLoggedIn, keyword) => {
   return axios.get(API_URL + (isLoggedIn ? "preference-articles/" : "articles-with-key/")+keyword, {

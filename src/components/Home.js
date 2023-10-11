@@ -38,9 +38,6 @@ const Home = () => {
   useEffect(() => {
     var startDate = new Date(dateFrom).toISOString().slice(0, 10);
     var endDate = new Date(dateTo).toISOString().slice(0, 10);
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
-
     const filteredarticle = articles
       .filter((article) => {
         return article.title.includes(keyword);
